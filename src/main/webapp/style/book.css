@@ -7,10 +7,18 @@ to start with a class that's the same names as the CSS file.
     background-color: lightslategray;
     border-radius: 0.25rem;
     padding: 0.25rem;
+    padding-top: 1rem;
     margin: 1rem;
     font-family: serif;
+    font-size: 14pt;
     width: 50%;
+    max-width: 500px;
     text-align: center;
     border: 3px blue;
+    img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 90%;
+    }
 }
 
