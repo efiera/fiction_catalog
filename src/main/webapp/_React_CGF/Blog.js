@@ -63,6 +63,30 @@ function Blog() {
                 supposed to be its own page until I read it again and realized that wasn't necessary. Overall I didn't mind this
                 assignment too much.
             </p>
+
+            <h3>HW 4 JS Components</h3>
+            <p>
+                This assignment really frustrated me because I struggled to understand what exactly I was supposed to be doing!
+                The concepts involved were not hard in my opinion. There were two main issues.  
+            </p>
+            <p>
+                 First, it was very unclear to me what I was even supposed to be trying to build. In our lab
+                 activity we had a "target" to make it clear what the desired outcome of the assignment would
+                 be, but for this homework it was simply unclear. This delayed my ability to even start the assignment.
+                 the homework requirements document is incredibly unclear. It lists a lot of requirements but doesn't
+                 actually explain what we are supposed to be trying to build.
+            </p>
+            <p>
+                 Second, it was challenging to get images to display properly. The methods presented in the sample code
+                 simply do not work correctly. This caused me to waste a lot of time trying to figure out what I was doing wrong,
+                 but the ultimate fix was actually simple.
+            </p>
+            <p>
+                This homework felt like I was an artist asked to draw an accurate medical diagram of a dragon with only
+                text-based specifications. If I made any errors doing this homework, it's due to a deficiency in the
+                instructions given to me, because I believe I understand the concepts perfectly well and would have been
+                able to execute perfectly on them given actual sufficient instruction.
+            </p>
         
         </div>
     );
