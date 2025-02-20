@@ -1,0 +1,16 @@
+/*
+CSS file naming convention says all rules in this file need 
+to start with a class that's the same names as the CSS file.
+*/
+
+.book {
+    background-color: lightslategray;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    margin: 1rem;
+    font-family: serif;
+    width: 50%;
+    text-align: center;
+    border: 3px blue;
+}
+

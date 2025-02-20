@@ -1,0 +1,32 @@
+.home {
+    font-size: 1rem;
+    line-height: 1.5rem; 
+}
+
+.home h4 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem; /* spaces out letters a bit */
+    white-space: nowrap;  /* don't allow the title to wrap */
+
+}
+
+.home .hero {
+    margin:0rem; 
+    padding:0rem; 
+    background-color: rgb(156, 100, 53);
+    color: black;  /* color of font */
+    font-family: sans-serif;
+}
+
+.home img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:40%; 
+    border-radius:0.5rem;
+}
+
+.home p {
+    font-size: 0.5 rem;
+}
