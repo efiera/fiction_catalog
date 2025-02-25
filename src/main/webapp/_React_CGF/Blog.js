@@ -87,6 +87,21 @@ function Blog() {
                 instructions given to me, because I believe I understand the concepts perfectly well and would have been
                 able to execute perfectly on them given actual sufficient instruction.
             </p>
+
+            <h3>HW 4 JS Components</h3>
+            <p>
+                Web API error message document:
+            </p>
+            <p>
+                To see my <strong>List Users API</strong> open up in a new tab,
+                click <a href="webUser/getAll" target="_blank">here</a>.
+            </p>
+            <p>
+                If you would like to see Ellie Fiera's <strong>List Other</strong> open up in a new tab,
+                click <a href="books/getAll" target="_blank">here</a>. This code is well 
+                designed and easy for the client to consume because it outputs from java objects 
+                that have been converted to JSON.
+            </p>
         
         </div>
     );
