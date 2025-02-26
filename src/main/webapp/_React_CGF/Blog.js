@@ -88,10 +88,7 @@ function Blog() {
                 able to execute perfectly on them given actual sufficient instruction.
             </p>
 
-            <h3>HW 4 JS Components</h3>
-            <p>
-                Web API error message document:
-            </p>
+            <h3>HW 5 Web API</h3>
             <p>
                 To see my <strong>List Users API</strong> open up in a new tab,
                 click <a href="webUser/getAll" target="_blank">here</a>.
@@ -102,6 +99,12 @@ function Blog() {
                 designed and easy for the client to consume because it outputs from java objects 
                 that have been converted to JSON.
             </p>
+            <p>
+                This assignment wasn't too difficult once I figured out what to do. I found generating the errors to be too
+                cumbersome, and I had to ask for help, but once I used the correct code as a basis for my work it wasn't
+                terribly challenging.
+            </p>
+            
         
         </div>
     );
