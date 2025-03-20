@@ -39,6 +39,7 @@
     <script src="_JS_reusable/dropDownFW.js"></script>
     <script src="_JS_reusable/MakeObj.js"></script>
     <script src="_JS_reusable/MakeBook.js"></script>
+    <script src="_JS_reusable/ajax_alt.js"></script>
 
     <!-- JS Content Generating functions (these are called by the router). -->
     <script src="_JS_CGF/UsersComingSoon.js"></script>
@@ -48,6 +49,8 @@
 
     <!-- React reusable (these are called by CGFs). -->
     <script type="text/babel" src="_React_reusable/ConvertEle.js"></script>
+    <script type="text/babel" src="_React_reusable/AjaxUsers.js"></script>
+    <script type="text/babel" src="_React_reusable/AjaxBooks.js"></script>
 c
     <!-- React Content Generating functions (these are called by the router) -->
     <script type="text/babel" src="_React_CGF/Home.js"></script>
@@ -105,7 +108,9 @@ c
                                 <Link to="/usersReact">Users (React)</Link> <br />
                                 <Link to="/myObj">My Objects</Link> <br />
                                 <Link to="/info">Info</Link> <br />
-                                <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a>
+                                <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a> <br />
+                                <Link to="/booksDb">Show Books (must be tunneled in)</Link> <br />
+                                <Link to="/usersDb">Show Users (must be tunneled in)</Link> <br />
                             </div>
                         </div>
 
@@ -124,6 +129,8 @@ c
                     <Route path="/myBooks" component={() => <ConvertEle ele={MakeBook_CGF()} />} />
                     <Route path="/blog" component={Blog} />
                     <Route path="/info" component={() => <ConvertEle ele={infoContent()} />} />
+                    <Route path="/booksDb" component={() => AjaxBooks("books/getAll")} />
+                    <Route path="/usersDb" component={() => AjaxUsers("webUser/getAll")} />
                 </div>
 
                 <div id="footer">

@@ -104,6 +104,11 @@ function Blog() {
                 cumbersome, and I had to ask for help, but once I used the correct code as a basis for my work it wasn't
                 terribly challenging.
             </p>
+
+            <h3>HW 6 ShowData</h3>
+            <p>
+                Filler
+            </p>
             
         
         </div>
