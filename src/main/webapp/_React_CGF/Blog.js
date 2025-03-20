@@ -107,7 +107,9 @@ function Blog() {
 
             <h3>HW 6 ShowData</h3>
             <p>
-                Filler
+                This assignment was a bit confusing to understand but overall it was relatively easy. I had some trouble
+                with the formatting and ended up deciding that I should just turn in a working product rather than focusing
+                on polishing it up.
             </p>
             
         
