@@ -46,6 +46,7 @@
     <script src="_JS_CGF/MakeObj_CGF.js"></script>
     <script src="_JS_CGF/infoContent.js"></script>
     <script src="_JS_CGF/MakeBook_CGF.js"></script>
+    
 
     <!-- React reusable (these are called by CGFs). -->
     <script type="text/babel" src="_React_reusable/ConvertEle.js"></script>
@@ -58,6 +59,9 @@ c
     <script type="text/babel" src="_React_CGF/Blog.js"></script>
 
     <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
+    <script type="text/babel" src="_React_CGF/ProfileAPI.js"></script>
+    <script type="text/babel" src="_React_CGF/LogOffAPI.js"></script>
+    <script type="text/babel" src="_React_CGF/LogOnAPI.js"></script>
 
     <script type="text/babel">
 
@@ -131,6 +135,9 @@ c
                     <Route path="/info" component={() => <ConvertEle ele={infoContent()} />} />
                     <Route path="/booksDb" component={() => AjaxBooks("books/getAll")} />
                     <Route path="/usersDb" component={() => AjaxUsers("webUser/getAll")} />
+                    <Route path="/login" component={LogOnAPI} />
+                    <Route path="/profile" component={() => ProfileAPI("session/getProfileAPI")} />
+                    <Route path="/logout" component={() => LogOffAPI("session/logoffAPI")} />   
                 </div>
 
                 <div id="footer">

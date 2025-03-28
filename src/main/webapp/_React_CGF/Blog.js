@@ -112,6 +112,10 @@ function Blog() {
                 on polishing it up.
             </p>
             
+            <h3>HW 7 Logon</h3>
+            <p>
+                Placeholder
+            </p>
         
         </div>
     );

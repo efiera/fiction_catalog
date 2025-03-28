@@ -6,7 +6,23 @@ import java.sql.ResultSet;
 import model.webUser.*;
 import dbUtils.*;
 
-public class WebUserView {
+public class WebUserView { // finds a specific user by their email and password, for logon.
+    public static StringData findUser(DbConn dbc, String email, String password) {
+        StringData sd = new StringData();
+        StringDataList sdl = getAllUsers(dbc); 
+        
+        System.out.println("Input email: " + email + ", password: " + password);
+
+        for (StringData u : sdl.webUserList) {
+            System.out.println("user: " + u.userEmail + " pass: " + u.userPassword);
+
+            if (u.userEmail.equals(email) && u.userPassword.equals(password)) {
+                return u; // returns first match
+            }
+        }
+        sd.errorMsg = "User not found.";
+        return sd;
+    }
 
     public static StringDataList getAllUsers(DbConn dbc) {
 
