@@ -116,6 +116,15 @@ function Blog() {
             <p>
                 Placeholder
             </p>
+
+            <h3>HW 8 Insert</h3>
+            <p>
+                This one I found especially frustrating because I found the server side pretty simple but I was confused 
+                about what was being asked of me to implement in terms of making the interface work. I wish we were
+                provided with a clear sample so that we could actually see what it is we are trying to develop rather
+                than having to be frustrated by trying to find the information in a pdf that isn't organized to show what
+                needs to be done.
+            </p>
         
         </div>
     );

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: beige;
+            font-family: sans-serif;
+        }
+
+        input,
+        textArea {
+            margin-left: 1.5rem;
+        }
+
+        h4 {
+            margin-bottom: 0rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+        <h4>Enter the @RequestMapping of the Insert Web API You Want To Call</h4>
+        <input id="URL" size="80" value="webUser/insert?jsonData=">
+
+        <h4>Enter the StringData Object That You Want To Insert</h4>
+        <textarea id="URLparams" rows="14" cols="80">
+{
+    "webUserId": "auto-increment",
+    "userEmail": "tur99267@temple.edu",
+    "userPassword": "password",
+    "userPassword2": "password",
+    "userImage": "img.jpg",
+    "birthday": "1992-09-11",
+    "membershipFee": "29.99",
+    "userRoleId": "1",
+    "userRoleType": "Admin",
+    "errorMsg": ""
+    }
+        </textarea>
+        <p>
+            <button onclick="launchAPI()">Launch Insert API in New Tab</button>
+            In this new tab...
+        </p>
+        <ul>
+            <li>
+                If you see a StringData object with empty string for all
+                field values, that's good (no error messages).
+                Refresh your List API tab - look for the inserted record (at the end).
+            </li>
+            <li>
+                Otherwise, check the messages, fix your data, and try again. A required field may be empty,
+                or you may have entered data of the wrong type, or the email address was already in the database.
+                (Since the web_user_id is an auto-increment primary key, it does not matter what you enter
+                for that field - the insert API ignores it.)
+            </li>
+        </ul>
+
+        <script>
+            function launchAPI() {
+                var api = document.getElementById("URL").value;
+                api = api.trim();
+
+                var URLparams = document.getElementById("URLparams").value;
+                URLparams = URLparams.trim();
+                URLparams.replace("\n", "");
+
+                for (var i = 0; i < URLparams.length; i++) {
+                    console.log(i + " " + URLparams[i]);
+                }
+
+                var url = api + encodeURIComponent(URLparams);
+                console.log("ready to open up a new tab using this URL:");
+                console.log(url);
+
+                window.open(url, "_blank");
+            }
+        </script>
+
+    </div>
+</body>
+
+</html>

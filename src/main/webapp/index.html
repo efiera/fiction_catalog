@@ -34,6 +34,7 @@
 
 <body>
     <div id="root"></div>
+    <script src="_JS_reusable/ajax_alt.js"></script>
 
     <!-- Put JS reusable first (these are called by CGFs or by the page like the dropDown FW). -->
     <script src="_JS_reusable/dropDownFW.js"></script>
@@ -57,6 +58,8 @@ c
     <script type="text/babel" src="_React_CGF/Home.js"></script>
     <script type="text/babel" src="_React_CGF/UsersComingSoonR.js"></script>
     <script type="text/babel" src="_React_CGF/Blog.js"></script>
+    <script type="text/babel" src="_React_CGF/UserInsertOrUpdate.js"></script>
+    <script type="text/babel" src="_React_CGF/BookInsertOrUpdate.js"></script>
 
     <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
     <script type="text/babel" src="_React_CGF/ProfileAPI.js"></script>
@@ -91,7 +94,7 @@ c
                         <div class="dropDown">
                             <div class="dropHeader">Account</div>
                             <div class="dropContent">
-                                <Link to="/register">Register</Link> <br />
+                                <Link to="/userInsert">Register</Link> <br />
                                 <Link to="/login">Log In</Link> <br />
                                 <Link to="/logout">Log Out</Link> <br />
                                 <Link to="/profile">Get Profile</Link> <br />
@@ -102,6 +105,8 @@ c
                             <div class="dropHeader">Homeworks</div>
                             <div class="dropContent">
                                 <Link to="/myBooks">JS Book Objects</Link><br />
+                                <Link to="/userInsert">UserInsertorUpdate</Link> <br />
+                                <Link to="/bookInsert">BookInsertorUpdate</Link> <br />
                             </div>
                         </div>
 
@@ -138,6 +143,9 @@ c
                     <Route path="/login" component={LogOnAPI} />
                     <Route path="/profile" component={() => ProfileAPI("session/getProfileAPI")} />
                     <Route path="/logout" component={() => LogOffAPI("session/logoffAPI")} />   
+                    <Route path="/otherDbSearchable" component={() => AjaxBooks("books/getAll")} />
+                    <Route path="/userInsert" component={UserInsertOrUpdate } />
+                    <Route path="/bookInsert" component={BookInsertOrUpdate } />
                 </div>
 
                 <div id="footer">

@@ -13,11 +13,6 @@ import view.WebUserView;
 @RestController
 public class WebUserController {
 
-    @RequestMapping("/hello") // only for testing purposes
-    public String helloController() {
-        return "<h1>Hello World</h1>";
-    }
-
     @RequestMapping(value = "/webUser/getAll", produces = "application/json")
     public String allUsers() {
 
