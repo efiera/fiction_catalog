@@ -1,4 +1,4 @@
-const AjaxBooks = (url) => {
+const AjaxBooks = () => {
 
     console.log("AjaxBooks running");
 
@@ -21,8 +21,8 @@ const AjaxBooks = (url) => {
 
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
-            url, // URL for AJAX call to invoke
-            "json/books.json", // URL for AJAX call to invoke
+            //url, // URL for AJAX call to invoke
+            //"json/books.json", // URL for AJAX call to invoke
             "books/getAll", // URL for AJAX call to invoke
 
             // success function (anonymous)

@@ -1,4 +1,4 @@
-const AjaxUsers = (url) => {
+const AjaxUsers = () => {
 
     console.log("AjaxUsers running");
 
@@ -21,8 +21,8 @@ const AjaxUsers = (url) => {
 
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
-            url, // URL for AJAX call to invoke
-            "json/users.json", // URL for AJAX call to invoke
+            //url, // URL for AJAX call to invoke
+            //"json/users.json", // URL for AJAX call to invoke
             "webUser/getAll", // URL for AJAX call to invoke
 
             // success function (anonymous)
