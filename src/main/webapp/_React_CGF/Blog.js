@@ -125,6 +125,11 @@ function Blog() {
                 than having to be frustrated by trying to find the information in a pdf that isn't organized to show what
                 needs to be done.
             </p>
+
+            <h3>HW 9 Update</h3>
+            <p>
+                Placeholder
+            </p>
         
         </div>
     );
