@@ -16,6 +16,8 @@
     <link href="style/home.css" rel="stylesheet" type="text/css" />
     <link href="style/blog.css" rel="stylesheet" type="text/css" />
     <link href="style/book.css" rel="stylesheet" type="text/css" />
+    <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
+    <link href="style/insertStyle.css" rel="stylesheet" type="text/css" />
 
     <!-- You need these two CDNs to use react, their version numbers must match -->
     <!-- changed version on 10-20-2022 from 16.3.1 to 18 for react and react-dom -->
@@ -34,37 +36,33 @@
 
 <body>
     <div id="root"></div>
-    <script src="_JS_reusable/ajax_alt.js"></script>
+    <script src="JS/ajax_alt.js"></script>
 
-    <!-- Put JS reusable first (these are called by CGFs or by the page like the dropDown FW). -->
-    <script src="_JS_reusable/dropDownFW.js"></script>
-    <script src="_JS_reusable/MakeObj.js"></script>
-    <script src="_JS_reusable/MakeBook.js"></script>
-    <script src="_JS_reusable/ajax_alt.js"></script>
-
-    <!-- JS Content Generating functions (these are called by the router). -->
-    <script src="_JS_CGF/UsersComingSoon.js"></script>
-    <script src="_JS_CGF/MakeObj_CGF.js"></script>
-    <script src="_JS_CGF/infoContent.js"></script>
-    <script src="_JS_CGF/MakeBook_CGF.js"></script>
+    <!-- JS -->
+    <script src="JS/dropDownFW.js"></script>
+    <script src="JS/MakeObj.js"></script>
+    <script src="JS/MakeBook.js"></script>
+    <script src="JS/ajax_alt.js"></script>
+    <script src="JS/UsersComingSoon.js"></script>
+    <script src="JS/MakeObj_CGF.js"></script>
+    <script src="JS/infoContent.js"></script>
+    <script src="JS/MakeBook_CGF.js"></script>
     
 
-    <!-- React reusable (these are called by CGFs). -->
-    <script type="text/babel" src="_React_reusable/ConvertEle.js"></script>
-    <script type="text/babel" src="_React_reusable/AjaxUsers.js"></script>
-    <script type="text/babel" src="_React_reusable/AjaxBooks.js"></script>
-c
-    <!-- React Content Generating functions (these are called by the router) -->
-    <script type="text/babel" src="_React_CGF/Home.js"></script>
-    <script type="text/babel" src="_React_CGF/UsersComingSoonR.js"></script>
-    <script type="text/babel" src="_React_CGF/Blog.js"></script>
-    <script type="text/babel" src="_React_CGF/UserInsertOrUpdate.js"></script>
-    <script type="text/babel" src="_React_CGF/BookInsertOrUpdate.js"></script>
-
-    <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
-    <script type="text/babel" src="_React_CGF/ProfileAPI.js"></script>
-    <script type="text/babel" src="_React_CGF/LogOffAPI.js"></script>
-    <script type="text/babel" src="_React_CGF/LogOnAPI.js"></script>
+    <!-- React -->
+    <script type="text/babel" src="React/ConvertEle.js"></script>
+    <script type="text/babel" src="React/AjaxUsers.js"></script>
+    <script type="text/babel" src="React/AjaxBooks.js"></script>
+    <script type="text/babel" src="React/UserTable.js"></script>
+    <script type="text/babel" src="React/AjaxUserTable.js"></script>
+    <script type="text/babel" src="React/Home.js"></script>
+    <script type="text/babel" src="React/UsersComingSoonR.js"></script>
+    <script type="text/babel" src="React/Blog.js"></script>
+    <script type="text/babel" src="React/UserInsertOrUpdate.js"></script>
+    <script type="text/babel" src="React/BookInsertOrUpdate.js"></script>
+    <script type="text/babel" src="React/ProfileAPI.js"></script>
+    <script type="text/babel" src="React/LogOffAPI.js"></script>
+    <script type="text/babel" src="React/LogOnAPI.js"></script>
 
     <script type="text/babel">
 
@@ -119,7 +117,7 @@ c
                                 <Link to="/info">Info</Link> <br />
                                 <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a> <br />
                                 <Link to="/booksDb">Show Books (must be tunneled in)</Link> <br />
-                                <Link to="/usersDb">Show Users (must be tunneled in)</Link> <br />
+                                <Link to="/users">Show Users (must be tunneled in)</Link> <br />
                             </div>
                         </div>
 
@@ -132,7 +130,7 @@ c
                 <div id="content">
                     <Route path="/" exact component={Home} />
                     <Route path="/home" component={Home} /> 
-                    <Route path="/users" component={() => <ConvertEle ele={UsersComingSoon()} />} />
+                    <Route path="/users" component={AjaxUserTable} />
                     <Route path="/usersReact" component={UsersComingSoonR} />
                     <Route path="/myObj" component={() => <ConvertEle ele={MakeObj_CGF()} />} />
                     <Route path="/myBooks" component={() => <ConvertEle ele={MakeBook_CGF()} />} />
@@ -146,6 +144,7 @@ c
                     <Route path="/otherDbSearchable" component={() => AjaxBooks("books/getAll")} />
                     <Route path="/userInsert" component={UserInsertOrUpdate } />
                     <Route path="/bookInsert" component={BookInsertOrUpdate } />
+                    
                 </div>
 
                 <div id="footer">
