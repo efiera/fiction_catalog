@@ -40,7 +40,8 @@ const BookInsertOrUpdate = (props) => {
 
     // State variable to hold the Role List (gotten from getRolesAPI.jsp) 
     // Role List populates the <select tag> for the UI.
-    const [roleList, setRoleList] = React.useState([]);
+    // const [roleList, setRoleList] = React.useState([]);
+    // no select tag, we don't need this
 
     // Object (State Variable) that holds all the error messages - field level 
     // and form/record level (errorMsg).
@@ -56,18 +57,34 @@ const BookInsertOrUpdate = (props) => {
         }
     );
 
+    // We have three possible ajax calls and we want to track each one independently
+    // to know if they are in progress or done. If anything is in progress, we 
+    // just put up a "...Loading..." UI to avoid complications trying to render 
+    // something that's not ready yet. 
 
-    // By having this boolean state variable, we avoid rendering the component 
-    // before we are ready to do so. 
-    const [isLoading, setIsLoading] = React.useState(true);
+    // The first ajax call gets the Role list so we can build a role <select> tag. 
+    // const [isLoadingRoleList, setIsLoadingRoleList] = React.useState(true);
+
+    // Then, if it's update (not insert), we need an ajax call to read the user 
+    // record to prepopulate the Data Entry UI. 
+    const [isLoadingBook, setIsLoadingBook] = React.useState(true);
+
+    // We do the above two ajax calls (user and role list) in parallel and track
+    // each one's completion using it's own boolean. 
+ 
+    // This boolean tracks whether or not we have invoked the insert/update save 
+    // Web API (and are awaiting its result).   
+    const [isLoadingSaveResponse, setIsLoadingSaveResponse] = React.useState(false);
 
     const encodeUserInput = () => {
+        console.log("encoding User input, book_id is " + bookData.book_id);
         var userInputObj = {
             "book_id": bookData.book_id,
             "book_title": bookData.book_title,
             "isbn": bookData.isbn,
-            "book_image": bookData.book_image,
+            "book_img": bookData.book_img,
             "pub_date": bookData.pub_date,
+            "web_user_id": bookData.web_user_id
         };
         console.log("userInputObj on next line");
         console.log(userInputObj);
@@ -99,71 +116,61 @@ const BookInsertOrUpdate = (props) => {
 
     // This code should execute just once at initial page render because 
     // the array of watch elements (second parameter to useEffect) is empty.
-    React.useEffect(
+    React.useEffect(() => {
 
-        () => {
+        // console.log("AJAX call for role list");
+        // ajax_alt("role/getAll",
 
-            console.log("AJAX call for role list"); //role is web_user_id, the foreign key
-            ajax_alt("role/getAll",
+        //     function (obj) { // success function. obj holds role list from AJAX call
 
-                function (obj) { // obj holds role list from AJAX call
-                    console.log("role/getAll Ajax success");
-                    if (obj.dbError.length > 0) {  // db error trying to read role list
-                        setErrorObj(setProp(errorObj, "book_id", obj.dbError));
-                    } else {
+        //         if (obj.dbError.length > 0) {  // db error trying to read role list
+        //             //setProp = (obj, propName, propValue)
+        //             setErrorObj(setProp(errorObj, "userRoleId", obj.dbError));
+        //             //setRoleError(obj.dbError);
+        //         } else {
+        //             setRoleList(obj.roleList);
+        //         }
+        //         setIsLoadingRoleList(false);
+        //     },
+        //     function (msg) { // Failur function. msg is AJAX Error Msg.
+        //         // setRoleError(msg);
+        //         setErrorObj(setProp(errorObj, "errorMsg", msg));
+        //         setIsLoadingRoleList(false);
+        //     }
+        // );
 
-                        // role fields (from role/getAll): book_id, web_user_id. 
-                        // sort alphabetically by role type (not by id)
-                        obj.roleList.sort(function (a, b) {
-                            if (a.web_user_id > b.web_user_id) {
-                                return 1
-                            } else {
-                                return -1;
-                            }
-                            return 0;
-                        });
-                        console.log('sorted role list on next line');
-                        console.log(obj.roleList);
-                        setRoleList(obj.roleList);
-
-                        if (action === "update") { //this is update, not insert, get book by the id
-                            console.log("Now getting book record " + id + " for the update");
-                            ajax_alt("books/getById?book_id=" + id,
-                                function (obj) {
-                                    if (obj.errorMsg.length > 0) { // obj.errorMsg holds error, e.g., db error
-                                        console.log("DB error trying to get the book record for udpate");
-                                        setErrorObj(setProp(errorObj, "errorMsg", obj.errorMsg));
-                                        //setProp = (obj, propName, propValue)
-
-                                    } else { // obj holds the book record of the given id
-                                        console.log("got the book record for update (on next line)");
-                                        console.log(obj);
-                                        setbookData(obj); // prepopulate book data since this is update.
-                                    }
-                                },
-                                function (ajaxErrorMsg) { // AJAX Error Msg from trying to read the book to be updated.
-                                    setErrorObj(setProp(errorObj, "errorMsg", ajaxErrorMsg));
-                                }
-                            );
-                        }
-
+        if (action === "update") { //this is update, not insert, get book by the id
+            console.log("Now getting book record " + id + " for the update");
+            ajax_alt("books/getById?book_id=" + id,
+                function (obj) {
+                    if (obj.errorMsg.length > 0) { // obj.errorMsg holds error, e.g., db error
+                        console.log("DB error trying to get the book record for udpate");
+                        setErrorObj(setProp(errorObj, "errorMsg", obj.errorMsg));
+                        //setProp = (obj, propName, propValue)
+                    } else { // obj holds the book record of the given id
+                        console.log("got the book record for update (on next line)");
+                        console.log(obj);
+                        setBookData(obj); // prepopulate book data since this is update.
                     }
+                    setIsLoadingBook(false);
                 },
-                function (ajaxErrorMsg) { // AJAX Error Msg from trying to read the role list.
-                    // setRoleError(msg);
-                    setErrorObj(setProp(errorObj, "errorMsg", ajaxErrorMsg));
+                function (msg) { // AJAX Error Msg from trying to read the book to be updated.
+                    setErrorObj(setProp(errorObj, "errorMsg", msg));
+                    setIsLoadingBook(false);
                 }
             );
-            setIsLoading(false);
-        }, []);
+        } else {
+            setIsLoadingBook(false); // for insert, we do not have to pre-load the book
+        }
+    }, []);
 
     const validate = () => {
+        setIsLoadingSaveResponse(true);
+        // In this function, we just change the value of state variable submitCount 
+        // so that the React.useEffect (that's watching for changes in submitCount)
+        // will run, making the AJAX call.  
         console.log("Validate, should kick off AJAX call");
         // action was set to insert or update above (must match web API @RequestMapping). 
-        console.log("Here is the book data that will be sent to the insert/update API");
-        console.log(bookData);
-
-        setIsLoading(true);
         ajax_alt("books/" + action + "?jsonData=" + encodeUserInput(),
 
             function (obj) { // obj holds field level error messages
@@ -176,18 +183,18 @@ const BookInsertOrUpdate = (props) => {
                 }
 
                 setErrorObj(obj); // show the field level error messages (will all be "" if record was inserted)
-                setIsLoading(false);
+                setIsLoadingSaveResponse(false);
             },
-            function (ajaxErrorMsg) { // AJAX error msg trying to call the insert or update API
-                setErrorObj(setProp(errorObj, "errorMsg", ajaxErrorMsg));
-                setIsLoading(false);
+            function (msg) { // AJAX error msg trying to call the insert or update API
+                setFormMsg(msg);
+                setIsLoadingSaveResponse(false);
             }
         );
     };
 
-    if (isLoading) {
-        return <div> ... Loading ... </div>;
-    }
+    // if (isLoadingRoleList || isLoadingBook || isLoadingSaveResponse) {
+    //     return <div>... Loading ... </div>;
+    // }
 
     return (
         <table className="insertArea">
@@ -195,10 +202,10 @@ const BookInsertOrUpdate = (props) => {
                 <tr>
                     <td>Id</td>
                     <td>
-                        <input value={bookData.web_user_id} disabled />
+                        <input value={bookData.book_id} disabled />
                     </td>
                     <td className="error">
-                        {errorObj.web_user_id}
+                        {errorObj.book_id}
                     </td>
                 </tr>
                 <tr>
@@ -210,6 +217,17 @@ const BookInsertOrUpdate = (props) => {
                     </td>
                     <td className="error">
                         {errorObj.book_title}
+                    </td>
+                </tr>
+                <tr>
+                    <td>ISBN</td>
+                    <td>
+                        <input value={bookData.isbn} onChange=
+                            {e => setBookData(setProp(bookData, "isbn", e.target.value))}
+                        />
+                    </td>
+                    <td className="error">
+                        {errorObj.isbn}
                     </td>
                 </tr>
                 <tr>
@@ -234,35 +252,16 @@ const BookInsertOrUpdate = (props) => {
                         {errorObj.pub_date}
                     </td>
                 </tr>
-                <tr>
-                    <td>ISBN</td>
-                    <td>
-                        <input value={bookData.isbn} onChange=
-                            {e => setBookData(setProp(bookData, "isbn", e.target.value))}
-                        />
-                    </td>
-                    <td className="error">
-                        {errorObj.isbn}
-                    </td>
-                </tr>
+                
                 <tr>
                     <td>Web User ID</td>
                     <td>
-                        <select onChange=
-                            {e => setBookData(setProp(bookData, "book_id", e.target.value))}
-                            value={bookData.book_id}
-                        >
-                            {
-                                roleList.map(role =>
-                                    <option key={role.book_id} value={role.book_id} >
-                                        {role.web_user_id}
-                                    </option>
-                                )
-                            }
-                        </select>
+                        <input value={bookData.web_user_id} onChange=
+                            {e => setBookData(setProp(bookData, "web_user_id", e.target.value))}
+                        />
                     </td>
                     <td className="error">
-                        {errorObj.book_id}
+                        {errorObj.web_user_id}
                     </td>
                 </tr>
                 <tr>
@@ -281,3 +280,12 @@ const BookInsertOrUpdate = (props) => {
     ); // ends the return statement
 
 }; // end of function/component
+
+
+            // "book_id": "",
+            // "book_title": "",
+            // "isbn": "",
+            // "book_img": "",
+            // "pub_date": "",
+            // "web_user_id": "",
+            // "errorMsg": ""

@@ -111,12 +111,12 @@ public class DbMods {
             PrepStatement pStatement = new PrepStatement(dbc, sql);
 
             // Encode string values into the prepared statement (wrapper class).
-            pStatement.setInt(1, Validate.convertInteger(updateData.book_id)); 
-            pStatement.setString(2, updateData.book_title);
-            pStatement.setInt(3, Validate.convertInteger(updateData.isbn));
-            pStatement.setString(4, updateData.book_img);
-            pStatement.setDate(5, Validate.convertDate(updateData.pub_date));
-            pStatement.setInt(6, Validate.convertInteger(updateData.web_user_id));
+            pStatement.setInt(6, Validate.convertInteger(updateData.book_id)); 
+            pStatement.setString(1, updateData.book_title);
+            pStatement.setInt(2, Validate.convertInteger(updateData.isbn));
+            pStatement.setString(3, updateData.book_img);
+            pStatement.setDate(4, Validate.convertDate(updateData.pub_date));
+            pStatement.setInt(5, Validate.convertInteger(updateData.web_user_id));
 
             // here the SQL statement is actually executed
             int numRows = pStatement.executeUpdate();
@@ -159,7 +159,7 @@ public class DbMods {
             return sd;
         }
         try {
-            String sql = "SELECT book_id, book_title, book_img, pub_date, web_user_id, "
+            String sql = "SELECT book_id, book_title, isbn, book_img, pub_date,"
                     + "books.web_user_id, user_email "
                     + "FROM books, web_user WHERE books.web_user_id = web_user.web_user_id "
                     + "AND book_id = ?";

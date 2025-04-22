@@ -26,19 +26,19 @@ public class bookController {
         return Json.toJson(list); // convert sdl obj to JSON Format and return that.
     }
 
-    @RequestMapping(value = "/books/insert", params = { "jsonData" }, produces = "application/json")
+    @RequestMapping(value = "/book/insert", params = { "jsonData" }, produces = "application/json")
     public String insert(@RequestParam("jsonData") String jsonInsertData) {
 
         StringData errorMsgs = new StringData();
 
         if ((jsonInsertData == null) || jsonInsertData.length() == 0) {
-            errorMsgs.errorMsg = "Cannot insert. No book was provided in JSON format";
+            errorMsgs.errorMsg = "Cannot insert. No book data was provided in JSON format";
         } else {
-            System.out.println("book for insert (JSON): " + jsonInsertData);
+            System.out.println("book data for insert (JSON): " + jsonInsertData);
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 StringData insertData = mapper.readValue(jsonInsertData, StringData.class);
-                System.out.println("book for insert (java obj): " + insertData.toString());
+                System.out.println("book data for insert (java obj): " + insertData.toString());
 
                 DbConn dbc = new DbConn();
                 errorMsgs.errorMsg = dbc.getErr();
@@ -47,14 +47,34 @@ public class bookController {
                 }
                 dbc.close();
             } catch (Exception e) {
-                String msg = "Could not convert jsonData to model.books.StringData obj: "+
-                jsonInsertData+ " - or other error in controller for 'books/insert': " +
+                String msg = "Could not convert jsonData to model.books.StringData obj: " +
+                        jsonInsertData + " - or other error in controller for 'book/insert': " +
                         e.getMessage();
                 System.out.println(msg);
                 errorMsgs.errorMsg += ". " + msg;
             }
         }
         return Json.toJson(errorMsgs);
+    }
+
+    @RequestMapping(value = "/books/getById", params = {
+            "book_id" }, produces = "application/json")
+    public String getById(@RequestParam("book_id") String book_id) {
+        StringData sd = new StringData();
+        if (book_id == null) {
+            sd.errorMsg = "Error: URL must be books/getById/xx " +
+                    "where xx is the book_id of the desired book record.";
+        } else {
+            DbConn dbc = new DbConn();
+            sd.errorMsg = dbc.getErr();
+            if (sd.errorMsg.length() == 0) {
+                System.out.println("*** Ready to call DbMods.getById");
+                sd = DbMods.getById(dbc, book_id);
+            }
+            dbc.close(); // EVERY code path that opens a db connection must close it
+            // (or else you have a database connection leak).
+        }
+        return Json.toJson(sd);
     }
 
     @RequestMapping(value = "/books/update", params = { "jsonData" }, produces = "application/json")
@@ -85,4 +105,5 @@ public class bookController {
         }
         return Json.toJson(errorData);
     }
+
 }
