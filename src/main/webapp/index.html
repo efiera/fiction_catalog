@@ -144,6 +144,8 @@
                     <Route path="/logout" component={() => LogOffAPI("session/logoffAPI")} />   
                     <Route path="/userInsert" component={UserInsertOrUpdate } />
                     <Route path="/bookInsert" component={BookInsertOrUpdate } />
+                    <Route path="/userUpdate/:id" component={UserInsertOrUpdate} />
+                    <Route path="/bookUpdate/:id" component={BookInsertOrUpdate} />
                     
                 </div>
 
