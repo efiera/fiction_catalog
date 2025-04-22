@@ -30,7 +30,7 @@ const AjaxBookTable = () => {
                 if (dbList.dbError.length > 0) {
                     setError(dbList.dbError);
                 } else {
-                    setItems(dbList.webBookList);
+                    setItems(dbList.booksList);
                 }
                 setIsLoading(false);
             },
