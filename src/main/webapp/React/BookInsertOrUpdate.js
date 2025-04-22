@@ -4,8 +4,8 @@ const BookInsertOrUpdate = (props) => {
 
     // See if this is an Insert or an Updat by checking the path that invoked this component.
     // If the path has a : in it, then its update, else its insert.
-    // If update, extract (from the path) the id of the webUser record that is to be updated. 
-    // console.log("props for userInsertOrUpdate on next line");
+    // If update, extract (from the path) the id of the book record that is to be updated. 
+    // console.log("props for bookInsertOrUpdate on next line");
     // console.log(props);
 
     var action = "insert"; // exact spelling has to match web API @RequestMapping
@@ -103,7 +103,7 @@ const BookInsertOrUpdate = (props) => {
 
         () => {
 
-            console.log("AJAX call for role list");
+            console.log("AJAX call for role list"); //role is web_user_id, the foreign key
             ajax_alt("role/getAll",
 
                 function (obj) { // obj holds role list from AJAX call
@@ -112,10 +112,10 @@ const BookInsertOrUpdate = (props) => {
                         setErrorObj(setProp(errorObj, "book_id", obj.dbError));
                     } else {
 
-                        // role fields (from role/getAll): book_id, userRoleType. 
+                        // role fields (from role/getAll): book_id, web_user_id. 
                         // sort alphabetically by role type (not by id)
                         obj.roleList.sort(function (a, b) {
-                            if (a.userRoleType > b.userRoleType) {
+                            if (a.web_user_id > b.web_user_id) {
                                 return 1
                             } else {
                                 return -1;
@@ -126,22 +126,22 @@ const BookInsertOrUpdate = (props) => {
                         console.log(obj.roleList);
                         setRoleList(obj.roleList);
 
-                        if (action === "update") { //this is update, not insert, get webUser by the id
-                            console.log("Now getting webUser record " + id + " for the update");
-                            ajax_alt("webUser/getById?book_id=" + id,
+                        if (action === "update") { //this is update, not insert, get book by the id
+                            console.log("Now getting book record " + id + " for the update");
+                            ajax_alt("books/getById?book_id=" + id,
                                 function (obj) {
                                     if (obj.errorMsg.length > 0) { // obj.errorMsg holds error, e.g., db error
-                                        console.log("DB error trying to get the webUser record for udpate");
+                                        console.log("DB error trying to get the book record for udpate");
                                         setErrorObj(setProp(errorObj, "errorMsg", obj.errorMsg));
                                         //setProp = (obj, propName, propValue)
 
-                                    } else { // obj holds the webUser record of the given id
-                                        console.log("got the web user record for update (on next line)");
+                                    } else { // obj holds the book record of the given id
+                                        console.log("got the book record for update (on next line)");
                                         console.log(obj);
-                                        setbookData(obj); // prepopulate user data since this is update.
+                                        setbookData(obj); // prepopulate book data since this is update.
                                     }
                                 },
-                                function (ajaxErrorMsg) { // AJAX Error Msg from trying to read the webUser to be updated.
+                                function (ajaxErrorMsg) { // AJAX Error Msg from trying to read the book to be updated.
                                     setErrorObj(setProp(errorObj, "errorMsg", ajaxErrorMsg));
                                 }
                             );
@@ -160,11 +160,11 @@ const BookInsertOrUpdate = (props) => {
     const validate = () => {
         console.log("Validate, should kick off AJAX call");
         // action was set to insert or update above (must match web API @RequestMapping). 
-        console.log("Here is the user data that will be sent to the insert/update API");
+        console.log("Here is the book data that will be sent to the insert/update API");
         console.log(bookData);
 
         setIsLoading(true);
-        ajax_alt("webUser/" + action + "?jsonData=" + encodeUserInput(),
+        ajax_alt("books/" + action + "?jsonData=" + encodeUserInput(),
 
             function (obj) { // obj holds field level error messages
                 console.log("These are the error messages (next line)");
@@ -202,10 +202,10 @@ const BookInsertOrUpdate = (props) => {
                     </td>
                 </tr>
                 <tr>
-                    <td>Email</td>
+                    <td>Title</td>
                     <td>
                         <input value={bookData.book_title} onChange=
-                            {e => setbookData(setProp(bookData, "book_title", e.target.value))}
+                            {e => setBookData(setProp(bookData, "book_title", e.target.value))}
                         />
                     </td>
                     <td className="error">
@@ -213,10 +213,32 @@ const BookInsertOrUpdate = (props) => {
                     </td>
                 </tr>
                 <tr>
-                    <td>Password</td>
+                    <td>Image</td>
                     <td>
-                        <input type="password" value={bookData.isbn} onChange=
-                            {e => setbookData(setProp(bookData, "isbn", e.target.value))}
+                        <input value={bookData.book_img} onChange=
+                            {e => setBookData(setProp(bookData, "book_img", e.target.value))}
+                        />
+                    </td>
+                    <td className="error">
+                        {errorObj.book_img}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pub Date</td>
+                    <td>
+                        <input value={bookData.pub_date} onChange=
+                            {e => setBookData(setProp(bookData, "pub_date", e.target.value))}
+                        />
+                    </td>
+                    <td className="error">
+                        {errorObj.pub_date}
+                    </td>
+                </tr>
+                <tr>
+                    <td>ISBN</td>
+                    <td>
+                        <input value={bookData.isbn} onChange=
+                            {e => setBookData(setProp(bookData, "isbn", e.target.value))}
                         />
                     </td>
                     <td className="error">
@@ -224,25 +246,23 @@ const BookInsertOrUpdate = (props) => {
                     </td>
                 </tr>
                 <tr>
-                    <td>Image</td>
+                    <td>Web User ID</td>
                     <td>
-                        <input value={bookData.book_image} onChange=
-                            {e => setbookData(setProp(bookData, "book_image", e.target.value))}
-                        />
+                        <select onChange=
+                            {e => setBookData(setProp(bookData, "book_id", e.target.value))}
+                            value={bookData.book_id}
+                        >
+                            {
+                                roleList.map(role =>
+                                    <option key={role.book_id} value={role.book_id} >
+                                        {role.web_user_id}
+                                    </option>
+                                )
+                            }
+                        </select>
                     </td>
                     <td className="error">
-                        {errorObj.book_image}
-                    </td>
-                </tr>
-                <tr>
-                    <td>pub_date</td>
-                    <td>
-                        <input value={bookData.pub_date} onChange=
-                            {e => setbookData(setProp(bookData, "pub_date", e.target.value))}
-                        />
-                    </td>
-                    <td className="error">
-                        {errorObj.pub_date}
+                        {errorObj.book_id}
                     </td>
                 </tr>
                 <tr>

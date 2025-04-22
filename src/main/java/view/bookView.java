@@ -40,9 +40,9 @@ public class bookView {
 
                 sd.book_id = Format.fmtInteger(results.getObject("book_id"));
                 sd.book_title = Format.fmtString(results.getObject("book_title"));
-                //sd.isbn = Format.fmtInteger(results.getObject("isbn"));
-                //sd.book_img = Format.fmtString(results.getObject("user_image"));
-                //sd.pub_date = Format.fmtDate(results.getObject("birthday"));
+                sd.isbn = Format.fmtInteger(results.getObject("isbn"));
+                sd.book_img = Format.fmtString(results.getObject("book_img"));
+                sd.pub_date = Format.fmtDate(results.getObject("pub_date"));
                 sd.web_user_id = Format.fmtInteger(results.getObject("web_user_id"));
                 sdl.add(sd);
             }

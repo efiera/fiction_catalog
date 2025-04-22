@@ -54,7 +54,9 @@
     <script type="text/babel" src="React/AjaxUsers.js"></script>
     <script type="text/babel" src="React/AjaxBooks.js"></script>
     <script type="text/babel" src="React/UserTable.js"></script>
+    <script type="text/babel" src="React/BookTable.js"></script>
     <script type="text/babel" src="React/AjaxUserTable.js"></script>
+    <script type="text/babel" src="React/AjaxBookTable.js"></script>
     <script type="text/babel" src="React/Home.js"></script>
     <script type="text/babel" src="React/UsersComingSoonR.js"></script>
     <script type="text/babel" src="React/Blog.js"></script>
@@ -116,7 +118,7 @@
                                 <Link to="/myObj">My Objects</Link> <br />
                                 <Link to="/info">Info</Link> <br />
                                 <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a> <br />
-                                <Link to="/booksDb">Show Books (must be tunneled in)</Link> <br />
+                                <Link to="/books">Show Books (must be tunneled in)</Link> <br />
                                 <Link to="/users">Show Users (must be tunneled in)</Link> <br />
                             </div>
                         </div>
@@ -131,17 +133,15 @@
                     <Route path="/" exact component={Home} />
                     <Route path="/home" component={Home} /> 
                     <Route path="/users" component={AjaxUserTable} />
+                    <Route path="/books" component={AjaxBookTable} />
                     <Route path="/usersReact" component={UsersComingSoonR} />
                     <Route path="/myObj" component={() => <ConvertEle ele={MakeObj_CGF()} />} />
                     <Route path="/myBooks" component={() => <ConvertEle ele={MakeBook_CGF()} />} />
                     <Route path="/blog" component={Blog} />
                     <Route path="/info" component={() => <ConvertEle ele={infoContent()} />} />
-                    <Route path="/booksDb" component={() => AjaxBooks("books/getAll")} />
-                    <Route path="/usersDb" component={() => AjaxUsers("webUser/getAll")} />
                     <Route path="/login" component={LogOnAPI} />
                     <Route path="/profile" component={() => ProfileAPI("session/getProfileAPI")} />
                     <Route path="/logout" component={() => LogOffAPI("session/logoffAPI")} />   
-                    <Route path="/otherDbSearchable" component={() => AjaxBooks("books/getAll")} />
                     <Route path="/userInsert" component={UserInsertOrUpdate } />
                     <Route path="/bookInsert" component={BookInsertOrUpdate } />
                     

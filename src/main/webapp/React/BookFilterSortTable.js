@@ -86,7 +86,9 @@ const booksFilterSortTable = () => {
         return <div>Error: {error}</div>;
     }
 
+    console.log("in bookFilterSortTable returning object");
     return (
+        
         <div className="clickSort">
             <h3>
                 Filterable Book List &nbsp;
@@ -109,7 +111,7 @@ const booksFilterSortTable = () => {
                 </thead>
                 <tbody>
                     {filteredList.map((listObj) => (
-                        <tr key={listObj.web_user_id}>
+                        <tr key={listObj.book_id}>
                             <td>{listObj.user_email}</td>
                             <td className="shadowImage textAlignCenter">
                             <img src={listObj.user_image && listObj.user_image.trim().length > 0 ? listObj.user_image : "pics1/null_pic.png"} alt="user"/></td>

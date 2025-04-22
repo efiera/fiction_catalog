@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.books.*;
-import model.books.DbMods;
 import dbUtils.*;
 import view.bookView;
 
@@ -56,5 +55,34 @@ public class bookController {
             }
         }
         return Json.toJson(errorMsgs);
+    }
+
+    @RequestMapping(value = "/books/update", params = { "jsonData" }, produces = "application/json")
+    public String update(@RequestParam("jsonData") String jsonInsertData) {
+
+        StringData errorData = new StringData();
+
+        if ((jsonInsertData == null) || jsonInsertData.length() == 0) {
+            errorData.errorMsg = "Cannot update. No book data was provided in JSON format";
+        } else {
+            System.out.println("book data for update (JSON): " + jsonInsertData);
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                StringData updateData = mapper.readValue(jsonInsertData, StringData.class);
+                System.out.println("book data for update (java obj): " + updateData.toString());
+
+                // The next 3 statements handle their own exceptions (so should not throw any
+                // exception).
+                DbConn dbc = new DbConn();
+                errorData = DbMods.update(updateData, dbc);
+                dbc.close();
+            } catch (Exception e) {
+                String msg = "Unexpected error in controller for 'books/insert'... " +
+                        e.getMessage();
+                System.out.println(msg);
+                errorData.errorMsg = msg;
+            }
+        }
+        return Json.toJson(errorData);
     }
 }

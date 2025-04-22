@@ -1,8 +1,6 @@
-const AjaxUserTable = () => {
+const AjaxBookTable = () => {
 
-    console.log("AjaxUserTable running");
-
-
+    console.log("AjaxBookTable running");
 
     // Tell React that 'items' (an array of objects) is a state variable 
     // that (when changed) should redisplay this component.
@@ -13,8 +11,8 @@ const AjaxUserTable = () => {
     // should redisplay this component. Set its initial value to null.
     const [error, setError] = React.useState(null);
 
-    // By having this boolean state variable, we avoid calling the UserTable before  
-    // we have the data (from AJAX call) to populate UserTable. 
+    // By having this boolean state variable, we avoid calling the BookTable before  
+    // we have the data (from AJAX call) to populate BookTable. 
     const [isLoading, setIsLoading] = React.useState(true);
 
     // useEffect 2nd parameter is an array of elements that 
@@ -26,14 +24,13 @@ const AjaxUserTable = () => {
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
 
-            //"json/users.json",
-            "webUser/getAll",
+            "books/getAll",
 
             function (dbList) {   // success function gets obj from ajax_alt
                 if (dbList.dbError.length > 0) {
                     setError(dbList.dbError);
                 } else {
-                    setItems(dbList.webUserList);
+                    setItems(dbList.webBookList);
                 }
                 setIsLoading(false);
             },
@@ -46,7 +43,7 @@ const AjaxUserTable = () => {
     }, []);
 
     function callInsert() {
-        window.location.hash = "#/userInsert";
+        window.location.hash = "#/bookInsert";
     }
 
     if (isLoading) {
@@ -59,13 +56,13 @@ const AjaxUserTable = () => {
                 error ?
                     <div>Error: {error} </div> :
                     <div className="clickSort">
-                        <h3>Web User List&nbsp;
+                        <h3>Book List&nbsp;
                             <img src="icons/insert.png" onClick={callInsert}/>
                         </h3>
-                        <UserTable list={items} />
+                        <BookTable list={items} />
                     </div>
             }
         </div>
     );
 
-}; // class AjaxUserTable
+}; // class AjaxBookTable

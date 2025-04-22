@@ -67,9 +67,11 @@ const AjaxBooks = () => {
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th className="textAlignCenter">Pub. Date</th>
-                        <th className="textAlignCenter">User ID</th>
-                        <th>Error</th>
+                        <th className="textAlignCenter">Image</th>
+                        <th className="textAlignCenter">Pub Date</th>
+                        <th className="textAlignCenter">ISBN</th>
+                        <th>User</th>
+                        <th>Error</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +79,9 @@ const AjaxBooks = () => {
                         items.map((item, index) =>
                             <tr key={item.book_id}>
                                 <td>{item.book_title}</td>
+                                <td className="shadowImage textAlignCenter">{item.book_img}</td>
                                 <td className="textAlignCenter">{item.pub_date}</td>
+                                <td className="textAlignCenter">{item.isbn}</td>
                                 <td className="textAlignCenter">{item.web_user_id}</td>
                                 <td>{item.errorMsg}</td>
                             </tr>
@@ -89,3 +93,11 @@ const AjaxBooks = () => {
     );
 
 }; // function AjaxUsers 
+
+{/* <th></th>
+<th>Title</th>
+<th className="textAlignCenter">Image</th>
+<th className="textAlignCenter">Pub Date</th>
+<th className="textAlignRight">ISBN</th>
+<th>User</th>
+<th>Error</th> */}
