@@ -106,4 +106,19 @@ public class bookController {
         return Json.toJson(errorData);
     }
 
+    @RequestMapping(value = "/books/delete", params = {"book_id" }, produces = "application/json")
+    public String delete(@RequestParam("book_id") String deleteBookId) {
+        StringData sd = new StringData();
+        if (deleteBookId == null) {
+            sd.errorMsg = "Error: URL must be books/delete?book_id=xx, where " +
+                    "xx is the book_id of the book record to be deleted.";
+        } else {
+            DbConn dbc = new DbConn();
+            sd = DbMods.delete(dbc, deleteBookId);
+            dbc.close(); // EVERY code path that opens a db connection must close it
+            // (or else you have a database connection leak).
+        }
+        return Json.toJson(sd);
+    }
+
 }

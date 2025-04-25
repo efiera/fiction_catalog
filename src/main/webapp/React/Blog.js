@@ -134,7 +134,8 @@ function Blog() {
 
             <h3>HW 10 Delete</h3>
             <p>
-                I had to correct one more Insert issue, but otherwise this homework was one of the easiest for me.
+                I had to correct one more Insert issue, but otherwise this homework was one of the easiest for me. It was
+                not too bad to implement the delete API in the table.
             </p>
         
         </div>

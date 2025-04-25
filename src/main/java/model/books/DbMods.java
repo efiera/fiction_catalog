@@ -190,4 +190,44 @@ public class DbMods {
         return sd;
     } // getById
 
+    public static StringData delete(DbConn dbc, String book_id) {
+
+        StringData sd = new StringData();
+
+        if (book_id == null) {
+            sd.errorMsg = "model.books.DbMods.delete: " +
+                    "cannot delete book record because 'book_id' is null";
+            return sd;
+        }
+
+        sd.errorMsg = dbc.getErr();
+        if (sd.errorMsg.length() > 0) { // cannot proceed, db error
+            return sd;
+        }
+
+        try {
+
+            String sql = "DELETE FROM books WHERE book_id = ?";
+
+            // Compile the SQL (checking for syntax errors against the connected DB).
+            PreparedStatement pStatement = dbc.getConn().prepareStatement(sql);
+
+            // Encode book data into the prepared statement.
+            pStatement.setString(1, book_id);
+
+            int numRowsDeleted = pStatement.executeUpdate();
+
+            if (numRowsDeleted == 0) {
+                sd.errorMsg = "Record not deleted - there was no record with book_id " + book_id;
+            } else if (numRowsDeleted > 1) {
+                sd.errorMsg = "Programmer Error: > 1 record deleted. Did you forget the WHERE clause?";
+            }
+
+        } catch (Exception e) {
+            sd.errorMsg = "Exception thrown in model.books.DbMods.delete(): " + e.getMessage();
+        }
+
+        return sd;
+    }
+
 }
