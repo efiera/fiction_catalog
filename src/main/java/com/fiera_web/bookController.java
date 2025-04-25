@@ -26,7 +26,7 @@ public class bookController {
         return Json.toJson(list); // convert sdl obj to JSON Format and return that.
     }
 
-    @RequestMapping(value = "/book/insert", params = { "jsonData" }, produces = "application/json")
+    @RequestMapping(value = "/books/insert", params = { "jsonData" }, produces = "application/json")
     public String insert(@RequestParam("jsonData") String jsonInsertData) {
 
         StringData errorMsgs = new StringData();

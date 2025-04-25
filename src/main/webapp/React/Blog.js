@@ -128,7 +128,13 @@ function Blog() {
 
             <h3>HW 9 Update</h3>
             <p>
-                Placeholder
+                I struggled with this one for a bit because I did Insert wrong the first time around. I had to go back
+                and correct a lot of mistakes. The Update portion was not too difficult though.
+            </p>
+
+            <h3>HW 10 Delete</h3>
+            <p>
+                I had to correct one more Insert issue, but otherwise this homework was one of the easiest for me.
             </p>
         
         </div>

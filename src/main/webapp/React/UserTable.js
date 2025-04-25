@@ -1,3 +1,5 @@
+//probably safe to delete
+
 const UserTable = ({list}) => {
    
     console.log("UserTable invoked");
@@ -8,6 +10,7 @@ const UserTable = ({list}) => {
                 <thead>
                     <tr>
                         <th></th>
+                        <th className="textAlignCenter">Id</th>
                         <th>Email</th>
                         <th className="textAlignCenter">Image</th>
                         <th className="textAlignCenter">Birthday</th>
@@ -20,6 +23,9 @@ const UserTable = ({list}) => {
                     {
                         list.map(listObj =>
                             <tr key={listObj.webUserId}>
+                                <td className="textAlignCenter" onClick={() => deleteUser(listObj, index)}   >
+                                    <img src="icons/delete.png" />
+                                </td>
                                 <td>
                                     <a href={'#/userUpdate/:'+listObj.webUserId}><img src="icons/update.png" className="clickLink"/></a>
                                 </td>

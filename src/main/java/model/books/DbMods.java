@@ -16,7 +16,7 @@ public class DbMods {
         StringData errorMsgs = new StringData();
 
         // Validation
-        errorMsgs.book_id = Validate.integerMsg(inputData.book_id, true);
+        //errorMsgs.book_id = Validate.integerMsg(inputData.book_id, false);
         errorMsgs.book_title = Validate.stringMsg(inputData.book_title, 45, true);
         // if (inputData.userPassword.compareTo(inputData.userPassword2) != 0) { // case sensative comparison
         //     errorMsgs.userPassword2 = "Both passwords must match";
@@ -40,8 +40,8 @@ public class DbMods {
         } else { // all fields passed validation
 
             // Start preparing SQL statement
-            String sql = "INSERT INTO books (book_id, book_title, isbn, book_img, pub_date, " +
-                    "web_user_id) values (?,?,?,?,?,?)";
+            String sql = "INSERT INTO books (book_title, isbn, book_img, pub_date, " +
+                    "web_user_id) values (?,?,?,?,?)";
 
             // PrepStatement is Sally's wrapper class for java.sql.PreparedStatement
             // Only difference is that Sally's class takes care of encoding null
@@ -49,12 +49,11 @@ public class DbMods {
             PrepStatement pStatement = new PrepStatement(dbc, sql);
 
             // Encode string values into the prepared statement (wrapper class).
-            pStatement.setInt(1, Validate.convertInteger(inputData.book_id)); 
-            pStatement.setString(2, inputData.book_title);
-            pStatement.setInt(3, Validate.convertInteger(inputData.isbn));
-            pStatement.setString(4, inputData.book_img);
-            pStatement.setDate(5, Validate.convertDate(inputData.pub_date));
-            pStatement.setInt(6, Validate.convertInteger(inputData.web_user_id));
+            pStatement.setString(1, inputData.book_title);
+            pStatement.setInt(2, Validate.convertInteger(inputData.isbn));
+            pStatement.setString(3, inputData.book_img);
+            pStatement.setDate(4, Validate.convertDate(inputData.pub_date));
+            pStatement.setInt(5, Validate.convertInteger(inputData.web_user_id));
 
             // here the SQL statement is actually executed
             int numRows = pStatement.executeUpdate();

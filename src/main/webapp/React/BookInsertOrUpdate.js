@@ -77,7 +77,7 @@ const BookInsertOrUpdate = (props) => {
     const [isLoadingSaveResponse, setIsLoadingSaveResponse] = React.useState(false);
 
     const encodeUserInput = () => {
-        console.log("encoding User input, book_id is " + bookData.book_id);
+        console.log("encoding User input");
         var userInputObj = {
             "book_id": bookData.book_id,
             "book_title": bookData.book_title,

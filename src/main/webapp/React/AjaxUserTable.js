@@ -2,8 +2,6 @@ const AjaxUserTable = () => {
 
     console.log("AjaxUserTable running");
 
-
-
     // Tell React that 'items' (an array of objects) is a state variable 
     // that (when changed) should redisplay this component.
     // Set its initial value to [], an empty array.
@@ -45,6 +43,37 @@ const AjaxUserTable = () => {
         );
     }, []);
 
+    function deleteListEle(theList, indx) {
+
+        // This javascript "built in function" removes 1 element (2nd param),
+        // starting from position indx (1st param)
+        theList.splice(indx,1);
+
+        // You have to make React aware that the list has actually changed 
+        // or else it won't re-render. Converting to JSON and back does the trick. 
+        return JSON.parse(JSON.stringify(theList));
+    }
+
+    // invoke a web API passing in userId to say which record you want to delete. 
+    // but also remove the row (of the clicked upon icon) from the HTML table -- 
+    // if Web API sucessful... 
+    function deleteUser(userObj, indx) {
+
+        console.log("To delete user " + userObj.userEmail + "?");
+
+        if (confirm("Do you really want to delete " + userObj.userEmail + "? ")) {
+
+
+            alert("You have to call the delete web api here and only "+
+            "delete the element from the UI if the delete web api was "+
+            "succesfull (ajax success function AND there's no error message) "+
+            "passed back from the ajax call");
+
+            setItems(deleteListEle(items, indx));
+
+        }
+    } // deleteUser
+
     function callInsert() {
         window.location.hash = "#/userInsert";
     }
@@ -62,9 +91,45 @@ const AjaxUserTable = () => {
                         <h3>Web User List&nbsp;
                             <img src="icons/insert.png" onClick={callInsert}/>
                         </h3>
-                        <UserTable list={items} />
-                    </div>
-            }
+                        <div className="clickSort"> 
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th className="textAlignCenter">Id</th>
+                        <th>Email</th>
+                        <th className="textAlignCenter">Image</th>
+                        <th className="textAlignCenter">Birthday</th>
+                        <th className="textAlignRight">Membership Fee</th>
+                        <th>Role</th>
+                        <th>Error</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        items.map((listObj, index) =>
+                            <tr key={listObj.webUserId}>
+                                <td className="textAlignCenter" onClick={() => deleteUser(listObj, index)}   >
+                                    <img src="icons/delete.png" />
+                                </td>
+                                <td>
+                                    <a href={'#/userUpdate/:'+listObj.webUserId}><img src="icons/update.png" className="clickLink"/></a>
+                                </td>
+                                <td>{listObj.userEmail + ' ('+listObj.webUserId+')'}</td>
+                                <td className="shadowImage textAlignCenter"><img src={listObj.userImage} /></td>
+                                <td className="textAlignCenter">{listObj.birthday}</td>
+                                <td className="textAlignRight">{listObj.membershipFee}</td>
+                                <td className="nowrap">{listObj.userRoleId} {listObj.userRoleType}</td>
+                                <td>{listObj.errorMsg}</td>
+                            </tr>
+                        )
+                    } 
+                </tbody>
+            </table>
+        </div>
+        </div>
+        }
         </div>
     );
 
