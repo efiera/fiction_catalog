@@ -63,13 +63,41 @@ const AjaxUserTable = () => {
 
         if (confirm("Do you really want to delete " + userObj.userEmail + "? ")) {
 
+            ajax_alt(
 
-            alert("You have to call the delete web api here and only "+
-            "delete the element from the UI if the delete web api was "+
-            "succesfull (ajax success function AND there's no error message) "+
-            "passed back from the ajax call");
+                "webUser/delete?userId=" + userObj.webUserId, // URL for AJAX call to invoke
 
-            setItems(deleteListEle(items, indx));
+                // success function (anonymous)
+                function (obj) {   // success function gets obj from ajax_alt
+                    console.log("successful ajax call");
+                    if (obj.errorMsg.length > 0) {
+                        console.log("DB error trying to delete the webUser record");
+                        //setError(obj.errorMsg);
+                        alert(`Error: ${obj.errorMsg}`);
+                        console.log(`Error: ${obj.errorMsg}`);
+                    } else {
+                        console.log("Successfully got webUser record to delete");
+                        console.log(obj);
+                        setItems(deleteListEle(items, indx));
+                        alert("Successfully deleted the record");
+                    }
+                    setIsLoading(false); // set isLoading last to prevent premature rendering. 
+                },
+
+                // failure function (also anonymous)
+                function (msg) {
+                    alert(`Error: ${msg}`);
+                    console.log(`Error: ${msg}`);
+                    //setError(msg);
+                    setIsLoading(false); // set isLoading last to prevent premature rendering.
+                }
+            )
+            // alert("You have to call the delete web api here and only "+
+            // "delete the element from the UI if the delete web api was "+
+            // "succesfull (ajax success function AND there's no error message) "+
+            // "passed back from the ajax call");
+
+            // setItems(deleteListEle(items, indx));
 
         }
     } // deleteUser
