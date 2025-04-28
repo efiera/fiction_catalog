@@ -8,6 +8,9 @@
  *   if provided a "1/1/1975" and "date", it will return 1975*365 (plus leap year), which 
  *      is the number of days since AD 0 (sorting by date, not date/time).
  */
+
+"use strict"; 
+
 function sortOrder(data, sortType) {
 
     sortType = sortType.toUpperCase();

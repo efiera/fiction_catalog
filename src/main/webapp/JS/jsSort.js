@@ -2,6 +2,8 @@
 // assuming that the sort property is of the given type (e.g., text, number, or date).
 // There is no return parameter - objList is sorted in place (I/O) parameter.
 
+"use strict"; 
+
 function jsSort(objList, byProperty, sortType) {
 
     if (!objList || !objList[0]) {

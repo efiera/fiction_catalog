@@ -1,3 +1,5 @@
+"use strict"; 
+
 const AjaxUserTable = () => {
 
     console.log("AjaxUserTable running");

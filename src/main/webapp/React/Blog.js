@@ -114,7 +114,7 @@ function Blog() {
             
             <h3>HW 7 Logon</h3>
             <p>
-                Placeholder
+                I think the demo requirement was frustrating. Otherwise, this homework didn't trouble me too much.
             </p>
 
             <h3>HW 8 Insert</h3>

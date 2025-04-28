@@ -6,13 +6,13 @@ public class StringData {
     public String book_img = ""; 
     public String pub_date = ""; 
     public String web_user_id = ""; 
-
+    public String user_email = ""; //joined from foreign table
     public String errorMsg = "";      // not actually in the database, used by the app 
                                       // to convey success or failure.    
 
     public int characterCount() {
         String s = this.book_id + this.book_title + this.isbn +
-            this.book_img + this.pub_date + this.web_user_id;
+            this.book_img + this.pub_date + this.web_user_id + this.user_email;
         return s.length();
     }                                 
 }

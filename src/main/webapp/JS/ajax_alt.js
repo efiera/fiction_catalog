@@ -3,6 +3,8 @@
 // Make an ajax call to the given url, then if the call was successful, 
 // call the Success Callback fn, otherwise, set an error message into the 
 // DOM element that has id 'errorId'.
+"use strict"; 
+
 function ajax_alt (url, successFn, failureFn) {
 
     // The httpReq Object is now local to function "ajaxCall" (not global)

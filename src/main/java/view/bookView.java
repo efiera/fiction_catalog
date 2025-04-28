@@ -22,8 +22,13 @@ public class bookView {
         StringData sd = new StringData();
         
         try {
-            String sql = "SELECT * "
-                    + "FROM books "
+            // String sql = "SELECT * "
+            //         + "FROM books "
+            //         + "ORDER BY book_id ";  // always order by something, not just random order.
+
+            String sql = "SELECT book_id, book_title, isbn, book_img, pub_date, "
+                    + "web_user.web_user_id, web_user.user_email "
+                    + "FROM books, web_user where books.web_user_id = web_user.web_user_id "
                     + "ORDER BY book_id ";  // always order by something, not just random order.
             
             PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
@@ -44,6 +49,7 @@ public class bookView {
                 sd.book_img = Format.fmtString(results.getObject("book_img"));
                 sd.pub_date = Format.fmtDate(results.getObject("pub_date"));
                 sd.web_user_id = Format.fmtInteger(results.getObject("web_user_id"));
+                sd.user_email = Format.fmtString(results.getObject("user_email"));
                 sdl.add(sd);
             }
             results.close();

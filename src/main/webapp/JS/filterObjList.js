@@ -3,6 +3,8 @@
 // properties that contain searchKey. Any image filenames are excluded
 // from the search (e.g., any string that contains .JPG or .PNG). 
 
+"use strict"; 
+
 function filterObjList (refList, searchKey) {
 
     // Return true if any property of obj contains searchKey. Otherwise, return false.

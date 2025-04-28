@@ -1,3 +1,5 @@
+"use strict"; 
+
 const AjaxUsers = () => {
 
     console.log("AjaxUsers running");

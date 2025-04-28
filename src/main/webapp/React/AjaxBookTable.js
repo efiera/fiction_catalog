@@ -1,3 +1,5 @@
+"use strict"; 
+
 const AjaxBookTable = () => {
 
     console.log("AjaxBookTable running");
@@ -108,7 +110,7 @@ const AjaxBookTable = () => {
     if (isLoading) {
         return <div>... Loading ...</div>;
     }
-    
+
     return (
         <div>
             {
@@ -147,7 +149,7 @@ const AjaxBookTable = () => {
                                 <td className="shadowImage textAlignCenter"><img src={listObj.book_img} /></td>
                                 <td className="textAlignCenter">{listObj.pub_date}</td>
                                 <td className="textAlignRight">{listObj.isbn}</td>
-                                <td className="nowrap">{listObj.web_user_id} {listObj.userEmail}</td>
+                                <td className="nowrap">{listObj.web_user_id} {listObj.user_email}</td>
                                 <td>{listObj.errorMsg}</td>
                             </tr>
                         )

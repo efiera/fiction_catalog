@@ -1,3 +1,5 @@
+"use strict"; 
+
 function MakeBook_CGF() {
 
     var ele = document.createElement("div");

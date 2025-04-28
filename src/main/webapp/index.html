@@ -43,7 +43,6 @@
     <script src="JS/MakeObj.js"></script>
     <script src="JS/MakeBook.js"></script>
     <script src="JS/ajax_alt.js"></script>
-    <script src="JS/UsersComingSoon.js"></script>
     <script src="JS/MakeObj_CGF.js"></script>
     <script src="JS/infoContent.js"></script>
     <script src="JS/MakeBook_CGF.js"></script>
@@ -58,7 +57,6 @@
     <script type="text/babel" src="React/AjaxUserTable.js"></script>
     <script type="text/babel" src="React/AjaxBookTable.js"></script>
     <script type="text/babel" src="React/Home.js"></script>
-    <script type="text/babel" src="React/UsersComingSoonR.js"></script>
     <script type="text/babel" src="React/Blog.js"></script>
     <script type="text/babel" src="React/UserInsertOrUpdate.js"></script>
     <script type="text/babel" src="React/BookInsertOrUpdate.js"></script>
@@ -102,24 +100,13 @@
                         </div>
 
                         <div class="dropDown">
-                            <div class="dropHeader">Homeworks</div>
-                            <div class="dropContent">
-                                <Link to="/myBooks">JS Book Objects</Link><br />
-                                <Link to="/userInsert">UserInsertorUpdate</Link> <br />
-                                <Link to="/bookInsert">BookInsertorUpdate</Link> <br />
-                            </div>
-                        </div>
-
-                        <div class="dropDown">
                             <div class="dropHeader">Search</div>
                             <div class="dropContent">
-                                <Link to="/users">Users (JS)</Link> <br />
-                                <Link to="/usersReact">Users (React)</Link> <br />
-                                <Link to="/myObj">My Objects</Link> <br />
+                                <Link to="/myBooks">JS Book Objects</Link><br />
                                 <Link to="/info">Info</Link> <br />
                                 <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a> <br />
-                                <Link to="/books">Show Books (must be tunneled in)</Link> <br />
-                                <Link to="/users">Show Users (must be tunneled in)</Link> <br />
+                                <Link to="/books">Show Books</Link> <br />
+                                <Link to="/users">Show Users</Link> <br />
                             </div>
                         </div>
 
@@ -134,8 +121,6 @@
                     <Route path="/home" component={Home} /> 
                     <Route path="/users" component={AjaxUserTable} />
                     <Route path="/books" component={AjaxBookTable} />
-                    <Route path="/usersReact" component={UsersComingSoonR} />
-                    <Route path="/myObj" component={() => <ConvertEle ele={MakeObj_CGF()} />} />
                     <Route path="/myBooks" component={() => <ConvertEle ele={MakeBook_CGF()} />} />
                     <Route path="/blog" component={Blog} />
                     <Route path="/info" component={() => <ConvertEle ele={infoContent()} />} />

@@ -178,6 +178,7 @@ public class DbMods {
                 sd.book_img = Format.fmtString(results.getObject("book_img"));
                 sd.pub_date = Format.fmtDate(results.getObject("pub_date"));
                 sd.web_user_id = Format.fmtInteger(results.getObject("web_user_id"));
+                sd.user_email = Format.fmtString(results.getObject("user_email"));
 
             } else {
                 sd.errorMsg = "Book Not Found.";
