@@ -127,7 +127,7 @@ const AjaxUserTable = () => {
                 <thead>
                     <tr>
                         <th></th>
-                        <th className="textAlignCenter">Id</th>
+                        <th ></th>
                         <th>Email</th>
                         <th className="textAlignCenter">Image</th>
                         <th className="textAlignCenter">Birthday</th>

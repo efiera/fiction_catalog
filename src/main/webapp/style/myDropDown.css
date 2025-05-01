@@ -7,7 +7,7 @@
 
 .dropDown, .dropDown a { /* comma between selectors means apply that styling to both selectors */
     color: #C8C8C8;
-    font-family:serif
+    font-family:sans-serif
 }
 
 .dropDown .dropContent a { /* space between selectors means apply only if the second selector is 

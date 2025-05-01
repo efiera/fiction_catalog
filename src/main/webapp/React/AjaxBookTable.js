@@ -126,7 +126,7 @@ const AjaxBookTable = () => {
             <thead>
                     <tr>
                         <th></th>
-                        <th className="textAlignCenter">Id</th>
+                        <th></th>
                         <th>Title</th>
                         <th className="textAlignCenter">Image</th>
                         <th className="textAlignCenter">Pub Date</th>
